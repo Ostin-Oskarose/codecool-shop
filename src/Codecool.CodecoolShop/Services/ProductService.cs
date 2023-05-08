@@ -1,32 +1,48 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Codecool.CodecoolShop.Daos;
-using Codecool.CodecoolShop.Models;
+using Codecool.CodecoolShop.Data;
+using Codecool.CodecoolShop.Logic;
+using Codecool.CodecoolShop.Models.Products;
+using Microsoft.EntityFrameworkCore;
 
 namespace Codecool.CodecoolShop.Services
 {
     public class ProductService
     {
-        private readonly IProductDao productDao;
-        private readonly IProductCategoryDao productCategoryDao;
+        private readonly CodeCoolShopDBContext _dbContext;
 
-        public ProductService(IProductDao productDao, IProductCategoryDao productCategoryDao)
+        public ProductService(CodeCoolShopDBContext dbContext)
         {
-            this.productDao = productDao;
-            this.productCategoryDao = productCategoryDao;
+            _dbContext = dbContext;
         }
 
-        public ProductCategory GetProductCategory(int categoryId)
+        public List<Product> GetProducts()
         {
-            return this.productCategoryDao.Get(categoryId);
+         return _dbContext.Products
+             .Include(x => x.Supplier)
+             .ToList();
         }
 
-        public IEnumerable<Product> GetProductsForCategory(int categoryId)
+        public ProductsCart GetProductsCartByShoppingCart(ShoppingCart cart)
         {
-            ProductCategory category = this.productCategoryDao.Get(categoryId);
-            return this.productDao.GetBy(category);
+            var products = new ProductsCart();
+
+            foreach (var (id, amount) in cart.Items)
+            {
+                var product = _dbContext.Products
+                    .Include(supplier => supplier.Supplier)
+                    .First(product => product.Id == id);
+
+                products.Products.Add(product, amount);
+            }
+            return products;
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _dbContext.Products
+                .Include(product => product.Supplier)
+                .First(product => product.Id == id);
         }
     }
 }

@@ -2,27 +2,38 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model List<Codecool.CodecoolShop.Models.Product>
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<Codecool.CodecoolShop.Models.Products.Product>
 
-<div class="container">
+
+<header class="bg-dark py-5">
+
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Cool-Shop</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Safe money by buying with us!</p>
+        </div>
+    </div>
+</header>
+
+<br/>
+
+<div class="container" >
     @foreach (var element in Model)
     {
-        <div class="col-lg-3 col-lg-3" style="display: inline-block; max-width: 350px; height: 350px">
+        element.Description = element.Description.Length > 30 ? element.Description.Substring(0, 30) + "..." : element.Description;
+        element.Supplier.Name = element.Supplier.Name.Length > 20 ? element.Supplier.Name.Substring(0, 20) + "..." : element.Supplier.Name;
+    
+        <div class="col-lg-3 col-lg-3" style="display: inline-block; max-width: 350px; height: 500px">
             <div class="card">
-                <img src="img/@(element.Name).jpg" style="height: 50%; width: 50%; align-self: center; padding-top: 10px">
-
+                <img src="img/@(element.Image).jpg" style="height: 50%; width: 50%; align-self: center; padding-top: 10px">
                 <div class="card-body">
-                    <h5 class="card-title text-center">
-                        Product
-                        @{ var num = Model.IndexOf(element) + 1;}
-                        @num
-                    </h5>
-                    <h5 class="card-title">@element.Name</h5>
-                    <p class="card-text">@element.Description.</p>
-                    <p class="card-text">Category: @element.ProductCategory.Department</p>
-                    <p class="card-text">Supplier: @element.Supplier.Name</p>
-                    <p class="card-text text-center"><strong>Price: @element.DefaultPrice.ToString("C2")</strong></p>
-                    <a href="" type="button" class="btn btn-primary" style="float: bottom">Add To Cart</a>
+                    <h5 class="card-title"><a asp-action="Details" asp-route-productId="@element.Id">@element.Name</a></h5>
+                    <p class="card-text"><i>@element.Description</i></p>
+                    <p class="card-text">Category: <b>@element.ProductCategory</b></p>
+                    <p class="card-text">Supplier: <b>@element.Supplier.Name</b></p>
+                    <p class="card-text text-center" style="font-size: large"><strong>Price: @element.DefaultPrice @element.Currency</strong></p>
+                    <a type="button" class="btn btn-primary" style="float: bottom" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@element.Id">Add To Cart</a>
                 </div>
             </div>
         </div>
