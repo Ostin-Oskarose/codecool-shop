@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Web;
+using Codecool.CodecoolShop.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

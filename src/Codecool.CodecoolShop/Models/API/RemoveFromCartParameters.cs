@@ -1,4 +1,4 @@
-﻿namespace Codecool.CodecoolShop.Models
+﻿namespace Codecool.CodecoolShop.Models.API
 {
     public class RemoveFromCartParameters
     {
