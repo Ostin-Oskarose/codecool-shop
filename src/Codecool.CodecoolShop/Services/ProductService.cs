@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Codecool.CodecoolShop.Data;
-using Codecool.CodecoolShop.Logic;
+using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Models.Products;
 using Microsoft.EntityFrameworkCore;
 

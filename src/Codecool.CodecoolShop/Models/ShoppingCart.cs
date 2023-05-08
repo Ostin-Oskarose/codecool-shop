@@ -2,9 +2,9 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 
-namespace Codecool.CodecoolShop.Logic
+namespace Codecool.CodecoolShop.Models
 {
-    public class ShoppingCart 
+    public class ShoppingCart
     {
         public int Id { get; set; }
         public Dictionary<int, int> Items { get; set; }

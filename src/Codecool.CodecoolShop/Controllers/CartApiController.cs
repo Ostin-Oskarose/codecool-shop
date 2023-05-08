@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text.Json;
-using Codecool.CodecoolShop.Models;
+using Codecool.CodecoolShop.Models.API;
 
 namespace Codecool.CodecoolShop.Controllers
 {
