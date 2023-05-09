@@ -3,6 +3,8 @@
 }
 
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 @model List<Codecool.CodecoolShop.Models.Products.Product>
 
 
@@ -33,7 +35,10 @@
                     <p class="card-text">Category: <b>@element.ProductCategory</b></p>
                     <p class="card-text">Supplier: <b>@element.Supplier.Name</b></p>
                     <p class="card-text text-center" style="font-size: large"><strong>Price: @element.DefaultPrice @element.Currency</strong></p>
-                    <a type="button" class="btn btn-primary" style="float: bottom" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@element.Id">Add To Cart</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a type="button" class="btn btn-primary" style="float: bottom" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@element.Id">Add To Cart</a>
+                    }
                 </div>
             </div>
         </div>
