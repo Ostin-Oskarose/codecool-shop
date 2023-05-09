@@ -1,4 +1,7 @@
-﻿@model Codecool.CodecoolShop.Models.Products.Product
+﻿@inject SignInManager<IdentityUser> SignInManager
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Codecool.CodecoolShop.Models.Products.Product
 
 @{
     ViewData["Title"] = Model.Name;
@@ -38,7 +41,10 @@
     </dl>
 </div>
 
-<a type="button" class="btn btn-primary" style="float: bottom" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.Id">Add To Cart</a>
+@if (SignInManager.IsSignedIn(User))
+{
+    <a type="button" class="btn btn-primary" style="float: bottom" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.Id">Add To Cart</a>
+}
 
 <br/><br/>
 
