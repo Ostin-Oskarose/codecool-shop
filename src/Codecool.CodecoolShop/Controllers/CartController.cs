@@ -16,11 +16,13 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Serilog.Events;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Codecool.CodecoolShop.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
 

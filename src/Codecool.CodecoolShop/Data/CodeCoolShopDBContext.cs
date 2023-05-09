@@ -1,9 +1,10 @@
 ﻿using Codecool.CodecoolShop.Models.Products;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Codecool.CodecoolShop.Data;
 
-public class CodeCoolShopDBContext : DbContext
+public class CodeCoolShopDBContext : IdentityDbContext
 {
     public CodeCoolShopDBContext(DbContextOptions<CodeCoolShopDBContext> options) : base(options)
     {
@@ -15,6 +16,7 @@ public class CodeCoolShopDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Product>().HasOne(x => x.Supplier);
     }
 }
