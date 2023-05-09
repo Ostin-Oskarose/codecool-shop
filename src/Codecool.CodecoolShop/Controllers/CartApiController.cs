@@ -35,5 +35,12 @@ namespace Codecool.CodecoolShop.Controllers
             cart.Items.Remove(parameters.productId);
             _shoppingCartLogic.SaveCart(cart, HttpContext);
         }
+
+        [HttpGet]
+        public IActionResult GetAmountOfCartItems()
+        {
+            var amount = _shoppingCartLogic.GetAmountOfCartItems(HttpContext);
+            return Ok(amount);
+        }
     }
 }
