@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<IdentityUser> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -32,7 +35,10 @@
                     <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="ViewCart">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <span id="cart-items-counter" class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                        }
                     </a>
                 </li>
             </ul>
@@ -54,7 +60,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true" defer></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

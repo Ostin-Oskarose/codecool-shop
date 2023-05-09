@@ -39,4 +39,9 @@ public class ShoppingCartLogic
         }
         httpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
     }
+
+    public int GetAmountOfCartItems(HttpContext httpContext)
+    {
+        return JsonSerializer.Deserialize<ShoppingCart>(httpContext.Session.Get("Cart")).Items.Count;
+    }
 }
