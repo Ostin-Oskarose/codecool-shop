@@ -51,5 +51,6 @@
         <th></th>
     </tr>
 </table>
+<a type="button" class="btn btn-primary float-left @(Model.Products.Count == 0 ? "disabled" : "")" asp-controller="Cart" asp-action="Checkout">Save Cart</a>
 <a type="button" class="btn btn-primary float-right @(Model.Products.Count == 0 ? "disabled" : "")" asp-controller="Cart" asp-action="Checkout">Checkout</a>
 

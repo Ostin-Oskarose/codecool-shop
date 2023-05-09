@@ -21,6 +21,14 @@ namespace Codecool.CodecoolShop.Controllers
         }
 
         [HttpPost]
+        public void SaveCart()
+        {
+            //TODO implement logged in check
+            var cart = _shoppingCartLogic.GetCart(HttpContext);
+
+        }
+
+        [HttpPost]
         public void AdjustCartQuantity(AdjustCartQuantityParameters parameters)
         {
             var cart = _shoppingCartLogic.GetCart(HttpContext);
