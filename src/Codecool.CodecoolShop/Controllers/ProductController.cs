@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Codecool.CodecoolShop.Models.ViewModels;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 
