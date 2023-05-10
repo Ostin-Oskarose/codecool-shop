@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +13,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Codecool.CodecoolShop.Migrations;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Codecool.CodecoolShop.Areas.Identity.Pages.Account
 {
@@ -20,14 +25,16 @@ namespace Codecool.CodecoolShop.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly CartService _cartService;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager, CartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _cartService = cartService;
         }
 
         [BindProperty]
@@ -85,6 +92,12 @@ namespace Codecool.CodecoolShop.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var cart = _cartService.GetCart(userId);
+                    if (cart != null)
+                    {
+                        HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
+                    }
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

@@ -36,6 +36,7 @@ namespace Codecool.CodecoolShop
             //    .AddEntityFrameworkStores<CodeCoolShopDBContext>();
             services.AddScoped<CodeCoolShopSeed>();
             services.AddScoped<ProductService>();
+            services.AddScoped<CartService>();
             services.AddScoped<SupplierService>();
             services.AddScoped<AddressService>();
             services.AddDistributedMemoryCache();

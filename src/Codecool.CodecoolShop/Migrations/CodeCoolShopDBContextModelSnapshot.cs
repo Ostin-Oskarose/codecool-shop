@@ -22,6 +22,19 @@ namespace Codecool.CodecoolShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Codecool.CodecoolShop.Models.DatabaseCart", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ShoppingCartData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("Codecool.CodecoolShop.Models.Products.Product", b =>
                 {
                     b.Property<int>("Id")
