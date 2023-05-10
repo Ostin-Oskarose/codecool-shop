@@ -1,8 +1,7 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿let cartCounter = document.querySelector('#cart-items-counter');
 
-// Write your JavaScript code.
-
-function addToCart() {
-    alert("hi");
+if (cartCounter != null) {
+    fetch("/api/CartApi/GetAmountOfCartItems")
+        .then(res => res.json())
+        .then(data => cartCounter.innerText = data)
 }
