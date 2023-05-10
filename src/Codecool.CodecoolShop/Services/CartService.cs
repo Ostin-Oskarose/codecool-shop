@@ -32,4 +32,14 @@ public class CartService
         }
         _dbContext.SaveChanges();
     }
+
+    public ShoppingCart? GetCart(string userId)
+    {
+        var databaseCart = _dbContext.Carts.FirstOrDefault(c => c.UserId == userId);
+        Debug.WriteLine(databaseCart);
+        if (databaseCart == null) return null;
+        var data = databaseCart.ShoppingCartData;
+        var shoppingCart = JsonSerializer.Deserialize<ShoppingCart>(data);
+        return shoppingCart;
+    }
 }
