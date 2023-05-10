@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
+using Codecool.CodecoolShop.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Serilog.Events;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -79,12 +80,16 @@ namespace Codecool.CodecoolShop.Controllers
             var cart = JsonSerializer.Deserialize<ShoppingCart>(HttpContext.Session.Get("Cart"));
 
             if (cart.Items.Count == 0) return StatusCode(403);
-            if (HttpContext.Session.Get("UserData") == null) return View();
-
-            var userData = JsonSerializer.Deserialize<UserDataModel>(HttpContext.Session.Get("UserData"));
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            userData.BillingAddress = _addressService.FindBilling(user.Id);
-            userData.ShippingAddress = _addressService.FindShipping(user.Id);
+            var billingAddress = _addressService.FindBillingAddress(user.Id);
+            var shippingAddress = _addressService.FindShippingAddress(user.Id);
+            var newUser = new UserDataModel() { BillingAddress = billingAddress, ShippingAddress = shippingAddress };
+          
+            if (HttpContext.Session.Get("UserData") == null) return View(newUser);
+            
+            var userData = JsonSerializer.Deserialize<UserDataModel>(HttpContext.Session.Get("UserData"));
+            userData.ShippingAddress = shippingAddress;
+            userData.BillingAddress = billingAddress;
             
             return View(userData);
         }
