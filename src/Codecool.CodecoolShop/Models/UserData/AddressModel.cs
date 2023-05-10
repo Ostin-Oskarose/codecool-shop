@@ -4,6 +4,8 @@ namespace Codecool.CodecoolShop.Models.UserData
 {
     public abstract class AddressModel
     {
+        [Key]
+        public int Id { get; set; }
         [Required]
         public string Country { get; set; }
         [Required]
@@ -12,5 +14,7 @@ namespace Codecool.CodecoolShop.Models.UserData
         public string Zipcode { get; set; }
         [Required]
         public string Address { get; set; }
+
+        public int? UserId { get; set; }
     }
 }

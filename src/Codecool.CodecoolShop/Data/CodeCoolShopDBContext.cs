@@ -1,4 +1,5 @@
 ﻿using Codecool.CodecoolShop.Models.Products;
+using Codecool.CodecoolShop.Models.UserData;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ public class CodeCoolShopDBContext : IdentityDbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<BillingAddressModel> BillingAddressModels { get; set; }
+    public DbSet<ShippingAddressModel> ShippingAddressModels { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
