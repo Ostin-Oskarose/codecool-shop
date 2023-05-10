@@ -7,5 +7,6 @@ namespace Codecool.CodecoolShop.Models
     {
         public ShoppingCart Cart { get; set; }
         public List<Product> Products { get; set; }
+        public bool IsLoggedIn { get; set; }
     }
 }

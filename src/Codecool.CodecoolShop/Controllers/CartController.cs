@@ -52,7 +52,8 @@ namespace Codecool.CodecoolShop.Controllers
             var model = new CartViewModel
             {
                 Cart = cart,
-                Products = products
+                Products = products,
+                IsLoggedIn = HttpContext.User.Identity.IsAuthenticated,
             };
 
             return View(model);

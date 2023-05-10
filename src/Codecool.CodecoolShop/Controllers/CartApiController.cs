@@ -4,8 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text.Json;
 using Codecool.CodecoolShop.Models.API;
+using Codecool.CodecoolShop.Services;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -14,10 +18,22 @@ namespace Codecool.CodecoolShop.Controllers
     public class CartApiController : ControllerBase
     {
         private readonly ShoppingCartLogic _shoppingCartLogic;
+        private readonly CartService _cartService;
 
-        public CartApiController()
+        public CartApiController(CartService cartService)
         {
             _shoppingCartLogic = new ShoppingCartLogic();
+            _cartService = cartService;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage SaveCart()
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+            var cart = _shoppingCartLogic.GetCart(HttpContext);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _cartService.SaveCart(userId, cart);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         [HttpPost]
