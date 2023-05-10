@@ -15,10 +15,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Serilog.Events;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Microsoft.AspNetCore.Identity;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -31,15 +33,19 @@ namespace Codecool.CodecoolShop.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<CartController> cartLogger;
         private readonly ShoppingCartLogic _shoppingCartLogic;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly AddressService _addressService;
 
 
-        public CartController(ILogger<ProductController> logger, ProductService productService, IMapper mapper, ILogger<CartController> cartLogger)
+        public CartController(ILogger<ProductController> logger, ProductService productService, IMapper mapper, ILogger<CartController> cartLogger,UserManager<IdentityUser> userManager, AddressService addressService)
         {
             _logger = logger;
             _productService = productService;
             _mapper = mapper;
             this.cartLogger = cartLogger;
             _shoppingCartLogic = new ShoppingCartLogic();
+            _userManager = userManager;
+            _addressService = addressService;
         }
 
         public IActionResult ViewCart()
@@ -68,7 +74,7 @@ namespace Codecool.CodecoolShop.Controllers
             return RedirectToAction("ViewCart");
         }
 
-        public IActionResult Checkout()
+        public async Task<IActionResult> Checkout()
         {
             var cart = JsonSerializer.Deserialize<ShoppingCart>(HttpContext.Session.Get("Cart"));
 
@@ -76,7 +82,10 @@ namespace Codecool.CodecoolShop.Controllers
             if (HttpContext.Session.Get("UserData") == null) return View();
 
             var userData = JsonSerializer.Deserialize<UserDataModel>(HttpContext.Session.Get("UserData"));
-
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            userData.BillingAddress = _addressService.FindBilling(user.Id);
+            userData.ShippingAddress = _addressService.FindShipping(user.Id);
+            
             return View(userData);
         }
 

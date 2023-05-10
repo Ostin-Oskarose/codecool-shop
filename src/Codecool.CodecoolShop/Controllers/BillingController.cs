@@ -30,11 +30,16 @@ namespace Codecool.CodecoolShop.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                _addressService.Add(fullBillingViewModel.BillingAddress);
-                _addressService.Add(fullBillingViewModel.ShippingAddress);
-              
+                if (user != null)
+                {
+                    _addressService.UpdateUserId(fullBillingViewModel,user.Id);
+                    _addressService.Add(fullBillingViewModel.BillingAddress);
+                    _addressService.Add(fullBillingViewModel.ShippingAddress);
 
-           
+                }
+
+
+
 
                 return RedirectToAction("Index", "Product");
             }
