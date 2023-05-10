@@ -15,7 +15,7 @@ public class CodeCoolShopDBContext : IdentityDbContext
 
     }
 
-    public DbSet<Product> Products { get; set; }
+    public virtual DbSet<Product> Products { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<DatabaseCart> Carts { get; set; }
 
