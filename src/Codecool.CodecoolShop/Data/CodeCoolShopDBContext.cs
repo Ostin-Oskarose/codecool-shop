@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+using Codecool.CodecoolShop.Models.UserData;
+using System.Security.Cryptography.X509Certificates;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Models.Products;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +18,10 @@ public class CodeCoolShopDBContext : IdentityDbContext
 
     public virtual DbSet<Product> Products { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<BillingAddressModel> BillingAddressModels { get; set; }
+    public DbSet<ShippingAddressModel> ShippingAddressModels { get; set; }
     public DbSet<DatabaseCart> Carts { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

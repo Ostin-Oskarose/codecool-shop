@@ -1,5 +1,6 @@
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Mappings;
+using Codecool.CodecoolShop.Models.UserData;
 using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Codecool.CodecoolShop.Models.UserData;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+
 
 namespace Codecool.CodecoolShop
 {
@@ -21,7 +25,6 @@ namespace Codecool.CodecoolShop
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -29,10 +32,13 @@ namespace Codecool.CodecoolShop
                 options.UseSqlServer(Configuration.GetConnectionString("CodeCoolShop")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<CodeCoolShopDBContext>();
+            //services.AddIdentity<AppUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<CodeCoolShopDBContext>();
             services.AddScoped<CodeCoolShopSeed>();
             services.AddScoped<ProductService>();
             services.AddScoped<CartService>();
             services.AddScoped<SupplierService>();
+            services.AddScoped<AddressService>();
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddAutoMapper(typeof(ProductMappingProfile));
