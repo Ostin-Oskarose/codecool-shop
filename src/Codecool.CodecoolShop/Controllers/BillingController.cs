@@ -21,7 +21,19 @@ namespace Codecool.CodecoolShop.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var billingInformation = _addressService.FindBillingAddress(userId);
+            var shippingInformation = _addressService.FindShippingAddress(userId);
+
+            if (billingInformation == null && shippingInformation == null) return View();
+
+            var model = new FullBillingViewModel
+            {
+                BillingAddress = billingInformation,
+                ShippingAddress = shippingInformation
+            };
+
+            return View(model);
         }
 
         [HttpPost]
