@@ -83,7 +83,7 @@ namespace Codecool.CodecoolShop.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var billingAddress = _addressService.FindBillingAddress(user.Id);
             var shippingAddress = _addressService.FindShippingAddress(user.Id);
-            var newUser = new UserDataModel() { BillingAddress = billingAddress, ShippingAddress = shippingAddress };
+            var newUser = new UserDataModel() { BillingAddress = billingAddress, ShippingAddress = shippingAddress, Email = user.Email, PhoneNumber = user.PhoneNumber};
           
             if (HttpContext.Session.Get("UserData") == null) return View(newUser);
             
