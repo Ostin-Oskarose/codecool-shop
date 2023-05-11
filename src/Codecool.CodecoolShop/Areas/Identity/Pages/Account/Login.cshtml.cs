@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -91,9 +92,9 @@ namespace Codecool.CodecoolShop.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
                     _logger.LogInformation("User logged in.");
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var cart = _cartService.GetCart(userId);
+                    var cart = _cartService.GetCart(user.Id);
                     if (cart != null)
                     {
                         HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
