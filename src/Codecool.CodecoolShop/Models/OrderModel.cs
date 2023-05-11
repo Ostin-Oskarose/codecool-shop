@@ -8,7 +8,7 @@ namespace Codecool.CodecoolShop.Models
     public class OrderModel
     {
         public ProductsCart? Products { get; set; } 
-        public UserDataModel UserData { get; set; } 
+        public UserDataModel UserData { get; set; }
         public PaymentModel Payment { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public Guid OrderId { get; set; } = Guid.NewGuid();

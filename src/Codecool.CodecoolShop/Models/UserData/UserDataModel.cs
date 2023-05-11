@@ -4,6 +4,7 @@ namespace Codecool.CodecoolShop.Models.UserData
 {
     public class UserDataModel
     {
+        public string UserId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

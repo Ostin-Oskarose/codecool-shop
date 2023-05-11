@@ -42,6 +42,7 @@ namespace Codecool.CodecoolShop
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddAutoMapper(typeof(ProductMappingProfile));
+            services.AddScoped<OrderHistoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

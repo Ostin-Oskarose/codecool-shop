@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Authorization;
 using Serilog.Events;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -83,14 +84,15 @@ namespace Codecool.CodecoolShop.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var billingAddress = _addressService.FindBillingAddress(user.Id);
             var shippingAddress = _addressService.FindShippingAddress(user.Id);
-            var newUser = new UserDataModel() { BillingAddress = billingAddress, ShippingAddress = shippingAddress };
+            var newUser = new UserDataModel() { BillingAddress = billingAddress, ShippingAddress = shippingAddress , UserId = user.Id };
           
             if (HttpContext.Session.Get("UserData") == null) return View(newUser);
             
             var userData = JsonSerializer.Deserialize<UserDataModel>(HttpContext.Session.Get("UserData"));
             userData.ShippingAddress = shippingAddress;
             userData.BillingAddress = billingAddress;
-            
+            userData.UserId = user.Id;
+
             return View(userData);
         }
 
@@ -148,13 +150,14 @@ namespace Codecool.CodecoolShop.Controllers
             return RedirectToAction("OrderConfirmation");
         }
 
-        public IActionResult OrderConfirmation()
+        public async Task<IActionResult> OrderConfirmation()
         {
 
             if (HttpContext.Session.Get("UserData") == null
                 || HttpContext.Session.Get("Payment") == null) return StatusCode(403);
 
 
+            var user = await _userManager.GetUserAsync(HttpContext.User);
             var cart = JsonSerializer.Deserialize<ShoppingCart>(HttpContext.Session.Get("Cart"));
 
             var newOrder = JsonSerializer.Deserialize<OrderModel>(HttpContext.Session.GetString("OrderModel"));
@@ -168,6 +171,7 @@ namespace Codecool.CodecoolShop.Controllers
                 UserData = JsonSerializer.Deserialize<UserDataModel>(HttpContext.Session.Get("UserData"))
             };
 
+            order.UserData.UserId = user.Id;
 
             if (Request.Method == "POST")
             {
@@ -178,6 +182,9 @@ namespace Codecool.CodecoolShop.Controllers
 
                 var jsonOrder = new OrderToFileModel()
                 {
+                    OrderId = order.OrderId,
+                    OrderDateTime = order.OrderDateTime,
+                    OrderStatus = order.OrderStatus,
                     Payment = order.Payment,
                     UserData = order.UserData,
                     Products = productsDto

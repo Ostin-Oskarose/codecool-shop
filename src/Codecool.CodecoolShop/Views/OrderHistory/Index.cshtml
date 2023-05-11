@@ -1,0 +1,75 @@
+@using System.Globalization
+@model List<Codecool.CodecoolShop.Models.OrderToFileModel>
+
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<h1>Order History</h1>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDateTime.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@order.OrderStatus</td>
+                    <td>
+                        @{
+                            decimal totalAmount = 0;
+                            if (order.Products != null)
+                            {
+                                totalAmount += order.Products.Sum(productEntry => productEntry.Subtotal);
+                            }
+                        }
+                        @totalAmount.ToString("C", new CultureInfo("en-US"))
+                    </td>
+                    <td>
+                        <details>
+                            <summary>Show Products</summary>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price Per Unit</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var product in order.Products)
+                                    {
+                                        <tr>
+                                            <td>@product.Name</td>
+                                            <td>@product.Quantity</td>
+                                            <td>@product.PricePerUnit.ToString("C", new CultureInfo("en-US"))</td>
+                                            <td>@product.Subtotal.ToString("C", new CultureInfo("en-US"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </details>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You have no orders in your order history.</p>
+}
+
+
