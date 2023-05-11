@@ -15,10 +15,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using AutoMapper;
+using Codecool.CodecoolShop.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Serilog.Events;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Microsoft.AspNetCore.Identity;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -31,15 +34,19 @@ namespace Codecool.CodecoolShop.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<CartController> cartLogger;
         private readonly ShoppingCartLogic _shoppingCartLogic;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly AddressService _addressService;
 
 
-        public CartController(ILogger<ProductController> logger, ProductService productService, IMapper mapper, ILogger<CartController> cartLogger)
+        public CartController(ILogger<ProductController> logger, ProductService productService, IMapper mapper, ILogger<CartController> cartLogger,UserManager<IdentityUser> userManager, AddressService addressService)
         {
             _logger = logger;
             _productService = productService;
             _mapper = mapper;
             this.cartLogger = cartLogger;
             _shoppingCartLogic = new ShoppingCartLogic();
+            _userManager = userManager;
+            _addressService = addressService;
         }
 
         public IActionResult ViewCart()
@@ -68,15 +75,22 @@ namespace Codecool.CodecoolShop.Controllers
             return RedirectToAction("ViewCart");
         }
 
-        public IActionResult Checkout()
+        public async Task<IActionResult> Checkout()
         {
             var cart = JsonSerializer.Deserialize<ShoppingCart>(HttpContext.Session.Get("Cart"));
 
             if (cart.Items.Count == 0) return StatusCode(403);
-            if (HttpContext.Session.Get("UserData") == null) return View();
-
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var billingAddress = _addressService.FindBillingAddress(user.Id);
+            var shippingAddress = _addressService.FindShippingAddress(user.Id);
+            var newUser = new UserDataModel() { BillingAddress = billingAddress, ShippingAddress = shippingAddress };
+          
+            if (HttpContext.Session.Get("UserData") == null) return View(newUser);
+            
             var userData = JsonSerializer.Deserialize<UserDataModel>(HttpContext.Session.Get("UserData"));
-
+            userData.ShippingAddress = shippingAddress;
+            userData.BillingAddress = billingAddress;
+            
             return View(userData);
         }
 

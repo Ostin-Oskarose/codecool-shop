@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Codecool.CodecoolShop.Data;
-using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Models.UserData;
+using Codecool.CodecoolShop.Models.ViewModels;
 using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,16 +30,18 @@ namespace Codecool.CodecoolShop.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                _addressService.Add(fullBillingViewModel.BillingAddress);
-                _addressService.Add(fullBillingViewModel.ShippingAddress);
-              
+                if (user != null)
+                {
+                    _addressService.UpdateAddressWithUserId(fullBillingViewModel,user.Id);
+                    _addressService.Add(fullBillingViewModel.BillingAddress);
+                    _addressService.Add(fullBillingViewModel.ShippingAddress);
 
-           
+                }
 
                 return RedirectToAction("Index", "Product");
             }
 
-            return Ok();
+            return RedirectToAction("Index","Billing");
 
         }
     }

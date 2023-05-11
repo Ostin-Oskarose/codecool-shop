@@ -15,6 +15,6 @@ namespace Codecool.CodecoolShop.Models.UserData
         [Required]
         public string Address { get; set; }
 
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
     }
 }

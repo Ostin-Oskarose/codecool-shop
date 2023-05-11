@@ -1,6 +1,6 @@
 ﻿using Codecool.CodecoolShop.Models.UserData;
 
-namespace Codecool.CodecoolShop.Models;
+namespace Codecool.CodecoolShop.Models.ViewModels;
 
 public class FullBillingViewModel
 {

@@ -1,8 +1,8 @@
-﻿@using Codecool.CodecoolShop.Models.Products
+﻿@inject SignInManager<IdentityUser> SignInManager
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@inject SignInManager<IdentityUser> SignInManager
-@model Codecool.CodecoolShop.Models.Products.ProductViewModel
+@using Codecool.CodecoolShop.Models.Products
+@model Codecool.CodecoolShop.Models.ViewModels.ProductViewModel
 
 
 <form method="post" asp-controller="Product" asp-action="Sort">
