@@ -19,7 +19,7 @@ namespace Codecool.CodecoolShop.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            if (user != null)
+            if (user is not null)
             {
                 var orderHistory = _orderHistoryService.GetOrderHistoryForUser(user.Id);
                 return View(orderHistory);

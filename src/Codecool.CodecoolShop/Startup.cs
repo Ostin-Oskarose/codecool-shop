@@ -1,6 +1,5 @@
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Mappings;
-using Codecool.CodecoolShop.Models.UserData;
 using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,13 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Codecool.CodecoolShop.Models.UserData;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 
 
 namespace Codecool.CodecoolShop
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -26,27 +23,23 @@ namespace Codecool.CodecoolShop
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllersWithViews();
-            services.AddDbContext<CodeCoolShopDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CodeCoolShop")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<CodeCoolShopDBContext>();
-            //services.AddIdentity<AppUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<CodeCoolShopDBContext>();
-            services.AddScoped<CodeCoolShopSeed>();
-            services.AddScoped<ProductService>();
-            services.AddScoped<CartService>();
-            services.AddScoped<SupplierService>();
-            services.AddScoped<AddressService>();
-            services.AddDistributedMemoryCache();
-            services.AddSession();
-            services.AddAutoMapper(typeof(ProductMappingProfile));
-            services.AddScoped<OrderHistoryService>();
-        }
+		{
+			services.AddControllersWithViews();
+			services.AddDbContext<CodeCoolShopDBContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("CodeCoolShop")));
+			services.AddDefaultIdentity<IdentityUser>()
+				.AddEntityFrameworkStores<CodeCoolShopDBContext>();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+			services.AddSeeds();
+			services.AddServices();
+			services.AddDistributedMemoryCache();
+			services.AddSession();
+			services.AddAutoMapper(typeof(ProductMappingProfile));
+			services.AddScoped<OrderHistoryService>();
+		}
+
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

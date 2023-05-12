@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.Json;
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Migrations;
-using Codecool.CodecoolShop.Models;
+using Codecool.CodecoolShop.Models.Cart;
 using Microsoft.AspNetCore.Identity;
 
 namespace Codecool.CodecoolShop.Services;

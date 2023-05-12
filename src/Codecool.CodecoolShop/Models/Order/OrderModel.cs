@@ -3,11 +3,11 @@ using Codecool.CodecoolShop.Models.Payment;
 using Codecool.CodecoolShop.Models.Products;
 using Codecool.CodecoolShop.Models.UserData;
 
-namespace Codecool.CodecoolShop.Models
+namespace Codecool.CodecoolShop.Models.Order
 {
     public class OrderModel
     {
-        public ProductsCart? Products { get; set; } 
+        public ProductsCart Products { get; set; }
         public UserDataModel UserData { get; set; }
         public PaymentModel Payment { get; set; }
         public OrderStatus OrderStatus { get; set; }

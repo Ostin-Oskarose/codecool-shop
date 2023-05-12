@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using MessagePack;
 using Microsoft.AspNetCore.Identity;
 
-namespace Codecool.CodecoolShop.Models;
+namespace Codecool.CodecoolShop.Models.Cart;
 
 public class DatabaseCart
 {

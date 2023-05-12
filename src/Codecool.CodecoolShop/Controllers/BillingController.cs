@@ -1,15 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Codecool.CodecoolShop.Data;
-using Codecool.CodecoolShop.Models.UserData;
 using Codecool.CodecoolShop.Models.ViewModels;
 using Codecool.CodecoolShop.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Codecool.CodecoolShop.Controllers
 {
-    public class BillingController : Controller
+	public class BillingController : Controller
     {
         private readonly UserManager<IdentityUser>_userManager;
         private readonly AddressService _addressService;
@@ -25,7 +22,7 @@ namespace Codecool.CodecoolShop.Controllers
             var billingInformation = _addressService.FindBillingAddress(userId);
             var shippingInformation = _addressService.FindShippingAddress(userId);
 
-            if (billingInformation == null && shippingInformation == null) return View();
+            if (billingInformation is null && shippingInformation is null) return View();
 
             var model = new FullBillingViewModel
             {
@@ -42,7 +39,7 @@ namespace Codecool.CodecoolShop.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                if (user != null)
+                if (user is not null)
                 {
                     _addressService.UpdateAddressWithUserId(fullBillingViewModel,user.Id);
                     _addressService.Add(fullBillingViewModel.BillingAddress);

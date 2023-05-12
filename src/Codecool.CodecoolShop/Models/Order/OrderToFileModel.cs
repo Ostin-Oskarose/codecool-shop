@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Codecool.CodecoolShop.Models.DTO;
 using Codecool.CodecoolShop.Models.Payment;
+using Codecool.CodecoolShop.Models.Products.DTO;
 using Codecool.CodecoolShop.Models.UserData;
 
-namespace Codecool.CodecoolShop.Models
+namespace Codecool.CodecoolShop.Models.Order
 {
     public class OrderToFileModel
     {

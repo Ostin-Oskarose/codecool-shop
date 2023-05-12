@@ -1,15 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Text.Json;
-using System.Web;
-using Codecool.CodecoolShop.Models;
+using Codecool.CodecoolShop.Models.Cart;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
-namespace Codecool.CodecoolShop.Logic;
+namespace Codecool.CodecoolShop.Services;
 
-public class ShoppingCartLogic
+public class ShoppingCartService
 {
 
     public ShoppingCart GetCart(HttpContext httpContext)

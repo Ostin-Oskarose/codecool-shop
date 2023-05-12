@@ -1,4 +1,4 @@
-﻿namespace Codecool.CodecoolShop.Models.DTO
+﻿namespace Codecool.CodecoolShop.Models.Products.DTO
 {
     public class ProductDto
     {

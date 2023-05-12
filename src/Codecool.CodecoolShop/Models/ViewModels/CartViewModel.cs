@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Codecool.CodecoolShop.Models.Cart;
 using Codecool.CodecoolShop.Models.Products;
 
 namespace Codecool.CodecoolShop.Models.ViewModels

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Codecool.CodecoolShop.Models.DTO;
 using Codecool.CodecoolShop.Models.Products;
+using Codecool.CodecoolShop.Models.Products.DTO;
 
 namespace Codecool.CodecoolShop.Mappings
 {
@@ -10,9 +10,9 @@ namespace Codecool.CodecoolShop.Mappings
         public ProductMappingProfile()
         {
             CreateMap<KeyValuePair<Product, int>, ProductDto>()
-                .ForMember(x => x.Quantity, cfg => cfg.MapFrom(y => y.Value))
-                .ForMember(x => x.Name, cfg => cfg.MapFrom(y => y.Key.Name))
-                .ForMember(x => x.PricePerUnit, cfg => cfg.MapFrom(y => y.Key.DefaultPrice));
+                .ForMember(x => x.Quantity, configuration => configuration.MapFrom(y => y.Value))
+                .ForMember(x => x.Name, configuration => configuration.MapFrom(y => y.Key.Name))
+                .ForMember(x => x.PricePerUnit, configuration => configuration.MapFrom(y => y.Key.DefaultPrice));
         }
     }
 }

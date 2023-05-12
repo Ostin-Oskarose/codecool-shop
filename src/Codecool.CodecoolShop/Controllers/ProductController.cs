@@ -1,4 +1,3 @@
-using Codecool.CodecoolShop.Logic;
 using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Models.Products;
 using Codecool.CodecoolShop.Services;
@@ -20,14 +19,14 @@ namespace Codecool.CodecoolShop.Controllers
         private readonly ILogger<ProductController> _logger;
         private readonly ProductService _productService;
         private readonly SupplierService _supplierService;
-        private readonly ShoppingCartLogic _shoppingCartLogic;
+        private readonly ShoppingCartService _shoppingCartLogic;
 
         public ProductController(ILogger<ProductController> logger, ProductService productService, SupplierService supplierService)
         {
             _logger = logger;
             _productService = productService;
             _supplierService = supplierService;
-            _shoppingCartLogic = new ShoppingCartLogic();
+            _shoppingCartLogic = new ShoppingCartService();
         }
 
         public IActionResult Index()

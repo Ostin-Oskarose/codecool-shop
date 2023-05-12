@@ -1,11 +1,11 @@
 using Codecool.CodecoolShop.Models.UserData;
 using System.Security.Cryptography.X509Certificates;
-using Codecool.CodecoolShop.Models;
 using Codecool.CodecoolShop.Models.Products;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Supplier = Codecool.CodecoolShop.Models.Products.Supplier;
+using Codecool.CodecoolShop.Models.Cart;
 
 namespace Codecool.CodecoolShop.Data;
 

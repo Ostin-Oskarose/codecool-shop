@@ -1,9 +1,7 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using Codecool.CodecoolShop.Data;
 using Codecool.CodecoolShop.Models.UserData;
 using Codecool.CodecoolShop.Models.ViewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace Codecool.CodecoolShop.Services;
 

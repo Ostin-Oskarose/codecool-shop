@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Codecool.CodecoolShop.Models;
-using Codecool.CodecoolShop.Models.Products;
-using Codecool.CodecoolShop.Models.ViewModels;
+using Codecool.CodecoolShop.Models.Order;
 using Newtonsoft.Json;
-using static NuGet.Packaging.PackagingConstants;
 
 namespace Codecool.CodecoolShop.Services
 {
-    public class OrderHistoryService
+	public class OrderHistoryService
     {
         public List<OrderToFileModel> GetOrderHistoryForUser(string userId)
         {

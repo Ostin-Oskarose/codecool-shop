@@ -1,4 +1,4 @@
-﻿namespace Codecool.CodecoolShop.Models.API
+﻿namespace Codecool.CodecoolShop.Models.Cart.API
 {
     public class AdjustCartQuantityParameters
     {

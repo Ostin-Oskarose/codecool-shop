@@ -16,8 +16,9 @@ namespace Codecool.CodecoolShop
     {
         public static void Main(string[] args)
         {
-            var newGuid = Guid.NewGuid();
-            FilePath.Path = Path.Combine(Environment.CurrentDirectory, "Data", "Log", $"{newGuid}.json");
+            var id = new Random().Next(1000);
+            var date = DateTime.UtcNow;
+            FilePath.Path = Path.Combine(Environment.CurrentDirectory, "Data", "Log", $"{date.ToString()+ id}.json");
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Codecool.CodecoolShop.Data;
-using Codecool.CodecoolShop.Models;
+using Codecool.CodecoolShop.Models.Cart;
 using Codecool.CodecoolShop.Models.Products;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +33,7 @@ namespace Codecool.CodecoolShop.Services
                     .Include(supplier => supplier.Supplier)
                     .First(product => product.Id == id);
 
-                products.Products.Add(product, amount);
+				products.Products.Add(product, amount);
             }
             return products;
         }
@@ -44,5 +44,7 @@ namespace Codecool.CodecoolShop.Services
                 .Include(product => product.Supplier)
                 .First(product => product.Id == id);
         }
+
+        
     }
 }

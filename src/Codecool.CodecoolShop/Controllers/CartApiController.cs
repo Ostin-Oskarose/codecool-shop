@@ -1,15 +1,10 @@
-﻿using Codecool.CodecoolShop.Logic;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text.Json;
-using Codecool.CodecoolShop.Models.API;
 using Codecool.CodecoolShop.Services;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Codecool.CodecoolShop.Models.Cart.API;
 
 namespace Codecool.CodecoolShop.Controllers
 {
@@ -17,12 +12,12 @@ namespace Codecool.CodecoolShop.Controllers
     [ApiController]
     public class CartApiController : ControllerBase
     {
-        private readonly ShoppingCartLogic _shoppingCartLogic;
+        private readonly ShoppingCartService _shoppingCartLogic;
         private readonly CartService _cartService;
 
         public CartApiController(CartService cartService)
         {
-            _shoppingCartLogic = new ShoppingCartLogic();
+            _shoppingCartLogic = new ShoppingCartService();
             _cartService = cartService;
         }
 
