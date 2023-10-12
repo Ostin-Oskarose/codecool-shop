@@ -24,3 +24,6 @@ This project was created by:
 - **Registration and login system** - Implemented using Identity
 - **Cart System** - Items can be added to the cart, their quantities adjusted and the cart is saved in the database
 - **Mock Checkout** - The user can go through a mock checkout system if they have items in their cart
+
+# Development
+The project was created by a team of four people working in a SCRUM setting. We started with a template for the website and implemented all of the features for it. The total development time was two weeks which were split over two sprints.
