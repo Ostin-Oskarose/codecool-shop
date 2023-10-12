@@ -21,6 +21,6 @@ This project was created by:
 - Maciej Trebacz
 
 # Features
-- Registration and login system - Implemented using Identity
-- Cart systewm - Items can be added to the cart, their quantities adjusted and the cart is saved in the database
-- Mock Checkout - The user can go through a mock checkout system if they have items in their cart
+- **Registration and login system** - Implemented using Identity
+- **Cart System** - Items can be added to the cart, their quantities adjusted and the cart is saved in the database
+- **Mock Checkout** - The user can go through a mock checkout system if they have items in their cart
