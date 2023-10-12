@@ -1,7 +1,7 @@
 # Codecool-Shop
 Codecool shop is a simulation of an online shopping store. 
 
-The site features an account creation and login system, a shopping cart that is saved and a mock checkout system. The site was constructed in two sprints each lasting one week and this was the MVP we managed to deliver in that time. The data in the database is randomly generated to fill the page.
+The site features an account creation and login system, this allows you to save and load the shopping cart. Items can be added to the shopping cart and the user can go through a mock checkout system. The site was constructed in two sprints each lasting one week and this was the MVP we managed to deliver in that time. The data in the database is randomly generated to fill the page.
 
 ## Used Technologies
 ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
